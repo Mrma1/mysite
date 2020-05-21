@@ -1,0 +1,82 @@
+{% extends 'base.html'%}
+{% block title %}
+<script src="http://cdn.highcharts.com.cn/highcharts/highcharts.js"></script>
+{% endblock %}
+{% block content %}
+<h1>欢迎访问我的网站</h1>
+<!-- 图表容器 DOM -->
+<div id="container" style="width: 600px;height:400px;"></div>
+<script>
+    // 图表配置
+    var options = {
+        chart: {
+            type: 'line' ,//指定图表的类型，默认是折线图（line）
+        },
+        title: {
+            text: null // 标题
+        },
+        xAxis: {
+            categories: {{ dates|safe }}, // x 轴分类
+            title:{ text:'前7日阅读量'},
+        },
+        yAxis: {
+            title: {
+                text: null // y 轴标题
+            },
+            labels: {
+                enabled: false
+            },
+            gridLineDashStyle: 'Dash',
+        },
+        series: [{ // 数据列
+            name: '阅读量', // 数据列名
+            data: {{ read_nums }} // 数据
+        }],
+        legend: {
+            enabled: false
+        },
+        credits: {
+            enabled: false
+        },
+        plotOptions: {
+            line: {
+        dataLabels: {
+            enabled: true
+        }
+    }
+}
+    };
+    // 图表初始化函数
+    var chart = Highcharts.chart('container', options);
+</script>
+<h2>今日热门阅读</h2>
+<ul>
+    {% for read_detail in today_hot_data %}
+        <li>
+            <a href="{% url 'specific_page' read_detail.content_object.id %}">{{ read_detail.content_object.title }}({{read_detail.read_num}})</a>
+        </li>
+    {% empty %}
+        <p>暂无博客</p>
+    {% endfor %}
+</ul>
+<h2>昨日热门阅读</h2>
+<ul>
+    {% for read_detail in yesterday_hot_data %}
+        <li>
+            <a href="{% url 'specific_page' read_detail.content_object.id %}">{{ read_detail.content_object.title }}({{read_detail.read_num}})</a>
+        </li>
+    {% empty %}
+        <p>暂无博客</p>
+    {% endfor %}
+</ul>
+<h2>一周热门阅读</h2>
+<ul>
+    {% for read_detail in week_hot_data %}
+        <li>
+            <a href="{% url 'specific_page' read_detail.id %}">{{read_detail.title}}({{read_detail.read_num_sum}})</a>
+        </li>
+    {% empty %}
+        <p>暂无博客</p>
+    {% endfor %}
+</ul>
+{% endblock%}

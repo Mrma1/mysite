@@ -1,0 +1,14 @@
+{% extends 'blog.html'%}
+{% block content %}
+<h3>{{blog_type}}</h3>
+{% for blog in page_of_blogs %}
+<h3><a href="{% url 'specific_page' blog.id %}">{{blog.title}}</a></h3><br>
+<p>{{blog.content|striptags|truncatechars:30}}</p>
+<span class="glyphicon glyphicon-tags" aria-hidden="true"></span>&nbsp;&nbsp;{{blog.blog_type}}&nbsp;&nbsp;&nbsp;
+<span class="glyphicon glyphicon-time" aria-hidden="true"></span>&nbsp;&nbsp;{{blog.created_time|date:'Y-h-d h:i:s'}}
+</p>
+{% empty %}
+<p>暂无博客，敬请期待</p>
+{% endfor %}
+<p>一共有篇博客</p>
+{% endblock%}

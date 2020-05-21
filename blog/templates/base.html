@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/static/css/style.css">
+    <link rel="stylesheet" href="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script type="text/javascript" charset="utf-8" src="/static/js/L2Dwidget.0.min.js"></script>
+    {% block title %}
+    {% endblock %}
+    <script type="text/javascript" charset="utf-8" src="/static/js/L2Dwidget.min.js"></script>
+    <script type="text/javascript">
+        L2Dwidget.init({
+            "display": {
+                "superSample": 2,
+                "width": 200,
+                "height": 400,
+                "position": "right",
+                "hOffset": 0,
+                "vOffset": 0
+            }
+        });
+    </script>
+    <title>我的网站</title>
+</head>
+
+<body>
+    <div id="container-main">
+        <header id="header">
+            <a href="{% url 'home' %}">个人博客</a>
+        </header>
+        <nav id="nav">
+            <ul id="navList">
+                <li><a href="{% url 'home' %}">首页</a></li>
+                <li><a href="{% url 'blog_list'%}">博客</a></li>
+                <li><a href="">关于</a></li>
+                <li><a href="">联系</a></li>
+            </ul>
+        </nav>
+        <div id="content">
+            {% block content %}
+            {% endblock %}
+            {% block paging %}
+            {% endblock %}
+        </div>
+        {% block sideBar %}
+        {% endblock %}
+        <footer id="footer">
+            我的博客
+        </footer>
+    </div>
+</body>
+
+</html>

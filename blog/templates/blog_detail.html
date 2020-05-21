@@ -1,0 +1,46 @@
+{% extends 'base.html'%}
+{% block content %}
+<div class="day">
+    <div class="title">
+        <h3>{{blog.title}}({{blog.get_read_num}})</h3>
+    </div>
+    <br>
+    <p>{{blog.content|safe}}</p>
+    {% if previous_blog %}
+    <p>上一篇：<a href="{% url 'specific_page' previous_blog.pk %}">{{previous_blog.title}}</a></p>
+    {% endif %}
+    {% if next_blog %}
+    <p> 下一篇：<a href="{% url 'specific_page' next_blog.pk %}">{{next_blog.title}}</a></p>
+    {%endif%}
+</div>
+<div class="comment">
+    <h2>提交评论</h2>
+    {% if user.is_authenticated %}
+    <p>{{user.username}}</p>
+    <form action="{% url 'update_comment' %}" method="POST">
+        {% csrf_token %}
+        <textarea name="commenttext" id="" cols="30" rows="10"></textarea>
+        <input type="hidden" name="content_type" value="blog">
+        <input type="hidden" name="object_id" value="{{blog.id}}">
+        <input type="submit" value="评论">
+    </form>
+    {% else %}
+    <form action="{% url 'login' %}" method="POST">
+        {% csrf_token %}
+        <label for="username">用户名</label>
+        <input type="text" name="username">
+        <label for="password">密码</label>
+        <input type="password" name="password">
+        <input type="submit" value="登录">
+    </form>
+    {% endif %}
+    <h2>评论列表</h2>
+    {% for comment in comments %}
+    <p>{{comment.user}}
+        {{comment.comment_time|date:'Y-m-d H:i:s'}}
+        {{comment.content}}</p>
+    {% empty %}
+    <p>暂无评论</p>
+    {% endfor %}
+</div>
+{% endblock%}

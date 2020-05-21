@@ -1,0 +1,112 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+}
+
+a {
+    text-decoration: none;
+    color: #999;
+}
+ul {
+    list-style: none;
+}
+
+/* 看板娘 */
+#live2dcanvas {
+    border: 0 !important;
+}
+
+/* 主容器 */
+#container-main {
+    margin: 0px auto;
+    padding: 20px;
+    border: 1px solid #ccc;
+    width: 80%;
+    background-color: #fff;
+    border-radius: 20px;
+    box-shadow: 3px 1px 1px #888888;
+    margin-top: 50px;
+    margin-bottom: 50px;
+
+    display: grid;
+    grid-template-areas:
+        'header header header'
+        'nav nav nav'
+        'content content sideBar'
+        'footer footer footer'
+    ;
+}
+
+#header {
+    grid-area: header;
+}
+
+#nav {
+    grid-area: nav;
+}
+
+#navList {
+    list-style: none;
+    border-top: 1px solid #ccc;
+    border-bottom: 1px solid #ccc;
+    margin: 20px 0;
+}
+
+#navList ul {
+    height: 0;
+}
+
+#navList li {
+    width: 20%;
+    display: inline-block;
+    text-align: center;
+    margin: 15px 0;
+}
+
+#content {
+    grid-area: content;
+}
+
+#sideBar {
+    grid-area: sideBar;
+}
+
+#footer {
+    text-align: center;
+    background-color: #ccc;
+    grid-area: footer;
+    margin-top: 20px;
+}
+
+/* 单个博客样式 */
+.day {
+    border-bottom: 1px dashed #ccc;
+    padding: 10px;
+}
+
+
+/* 博客分类样式 */
+.blog-type,
+.blog-date {
+    border: 1px solid #ccc;
+    border-radius: 15px;
+    margin: 0 20px;
+    margin-top: 30px;
+    width: 187px;
+}
+
+.blog-type-name {
+    padding: 20px 15px;
+    border-bottom: 1px solid #ccc;
+}
+
+.blog-type-list {
+    list-style: none;
+    padding: 20px 15px;
+    line-height: 1.7em;
+}
