@@ -50,7 +50,6 @@ def blog_detail(request, page_id):
     key = ReadNumExpendMethod.get_cookie(request, blog)
 
     content_type = ContentType.objects.get_for_model(blog)
-    print(content_type)
     comments = Comment.objects.filter(
         content_type=content_type, object_id=blog.pk)
 

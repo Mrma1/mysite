@@ -6,12 +6,15 @@
 
 body {
     font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    background-image: url('../images/bj.jpg');
+    background-size: cover;
 }
 
 a {
     text-decoration: none;
     color: #999;
 }
+
 ul {
     list-style: none;
 }
@@ -27,12 +30,11 @@ ul {
     padding: 20px;
     border: 1px solid #ccc;
     width: 80%;
-    background-color: #fff;
+    background-color: rgba(255, 255, 255, 0.9);
     border-radius: 20px;
-    box-shadow: 3px 1px 1px #888888;
+    /* box-shadow: 3px 1px 1px #888888; */
     margin-top: 50px;
     margin-bottom: 50px;
-
     display: grid;
     grid-template-areas:
         'header header header'
@@ -77,10 +79,12 @@ ul {
 }
 
 #footer {
+    color: #999;
     text-align: center;
-    background-color: #ccc;
     grid-area: footer;
-    margin-top: 20px;
+    margin: 30px 0px 20px 0px;
+    font: 0.9em/1.6 "Lato", Helvetica Neue, Helvetica, Arial, sans-serif;
+    font-size: 0.9em;
 }
 
 /* 单个博客样式 */
@@ -88,7 +92,6 @@ ul {
     border-bottom: 1px dashed #ccc;
     padding: 10px;
 }
-
 
 /* 博客分类样式 */
 .blog-type,

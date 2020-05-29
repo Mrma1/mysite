@@ -4,6 +4,9 @@ from django.shortcuts import render, redirect
 from read_statist.views import ReadNumExpendMethod
 from django.core.cache import cache
 from django.contrib import auth
+from .forms import LoginForms,RegisterForms
+from django.urls import reverse
+from django.contrib.auth.models import User
 
 
 def index(request):
@@ -28,13 +31,34 @@ def index(request):
 
 
 def login(request):
-    username = request.POST.get('username', '')
-    password = request.POST.get('password', '')
-
-    user = auth.authenticate(request, username=username, password=password)
-    if user is not None:
-        auth.login(request, user)
-        referer = request.META.get('HTTP_REFERER')
-        return redirect(referer, '/')
+    if request.method == 'POST':
+        login_form = LoginForms(request.POST)
+        if login_form.is_valid():
+            user = login_form.cleaned_data['user']
+            auth.login(request, user)
+            return redirect(request.GET.get('from', reverse('home')))
     else:
-        return render(request, 'error.html', {'messige': '没有登录'})
+        login_form = LoginForms()
+    content = {}
+    content['login_form'] = login_form
+    return render(request, 'login.html', content)
+
+
+def register(request):
+    if request.method == 'POST':
+        register_form = RegisterForms(request.POST)
+        if register_form.is_valid():
+            username = register_form.cleaned_data['username']
+            password = register_form.cleaned_data['password']
+            email = register_form.cleaned_data['email']
+            user = User.objects.create_user(username=username, password=password, email=email)
+            user.save()
+
+            user = auth.authenticate(username=username, password=password, email=email)
+            auth.login(request, user)
+            return redirect(request.GET.get('from', reverse('home')))
+    else:
+        register_form = RegisterForms()
+    content = {}
+    content['register_form'] = register_form
+    return render(request, 'register.html', content)

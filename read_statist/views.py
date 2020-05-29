@@ -49,7 +49,6 @@ class ReadNumExpendMethod:
     def get_today_hot_data(content_type):
         today = timezone.now().date()
         read_details = ReadDetail.objects.filter(content_type=content_type, date=today).order_by('-read_num')
-        print(read_details[:7])
         return read_details[:7]
 
     def get_yesterday_hot_data(content_type):
