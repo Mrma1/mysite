@@ -113,3 +113,16 @@ ul {
     padding: 20px 15px;
     line-height: 1.7em;
 }
+.comment {
+    border-bottom: 1px dashed #ccc;
+    margin-bottom: 0.5em;
+    padding-bottom: 0.5em;
+}
+.reply {
+    margin-left: 2em;
+}
+.like {
+    color: #337ab7;
+    cursor: pointer;
+    padding: 0.5em 0.3em;
+}

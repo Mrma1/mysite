@@ -1,5 +1,6 @@
 {% extends 'base.html'%}
 {% block content %}
+{% load comment_tags %}
 {% for blog in page_of_blogs.object_list %}
 <div class="day">
     <div class="title">
@@ -9,6 +10,7 @@
     <span class="glyphicon glyphicon-tags" aria-hidden="true"></span>&nbsp;&nbsp;{{blog.blog_type}}&nbsp;&nbsp;&nbsp;
     <span class="glyphicon glyphicon-time"
         aria-hidden="true"></span>&nbsp;&nbsp;{{blog.created_time|date:'Y-m-d H:i:s'}}&nbsp;&nbsp;阅读({{blog.get_read_num}})
+        &nbsp;&nbsp;评论({% get_comment_count blog %})
     <br><br>
 </div>
 {% empty %}

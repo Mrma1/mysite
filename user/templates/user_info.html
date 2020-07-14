@@ -1,0 +1,30 @@
+{% extends 'base.html'%}
+{% block content %}
+    {% if user.is_authenticated %}
+        <h2>{{ user.username }}</h2>
+        <ul>
+            <li>
+                昵称：{{user.get_nickname}}
+                <a href="{% url 'change_nickname' %}?from={{ request.get_full_path }}">修改昵称</a>
+            </li>
+            <li>
+                {% if user.email %}
+                    邮箱：{{user.email}}
+                {% else %}
+                    邮箱：未绑定 <a href="{% url 'bind_email' %}?from={{ request.get_full_path }}">绑定邮箱</a>
+                {% endif %}
+            </li>
+            <li>
+                上次登录时间：{{ user.last_login|date:"Y-m-d H:i:s"}}
+            </li>
+            <li>
+                <a href="{% url 'change_password' %}">修改密码</a>
+            </li>
+        </ul>
+    {% else %}
+        <span>未登录，跳转到首页...</span>
+        <script type="text/javascript">
+            window.location.href = '/'
+        </script>
+    {% endif %}
+{% endblock %}

@@ -7,7 +7,6 @@ from django.core.paginator import Paginator
 from django.contrib.contenttypes.models import ContentType
 from read_statist.models import ReadNum
 from read_statist.views import ReadNumExpendMethod
-from comment.models import Comment
 
 
 def get_page_blogs(request, blogs):
@@ -49,17 +48,12 @@ def blog_detail(request, page_id):
     blog = get_object_or_404(Blog, id=page_id)
     key = ReadNumExpendMethod.get_cookie(request, blog)
 
-    content_type = ContentType.objects.get_for_model(blog)
-    comments = Comment.objects.filter(
-        content_type=content_type, object_id=blog.pk)
-
     content = {}
     content['blog'] = blog
     content['previous_blog'] = Blog.objects.filter(
         created_time__gt=blog.created_time).last()
     content['next_blog'] = Blog.objects.filter(
         created_time__lt=blog.created_time).first()
-    content['comments'] = comments
     response = render(request, 'blog_detail.html', content)
     response.set_cookie(key, 'true')
 
